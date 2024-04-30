@@ -4,6 +4,22 @@
   box-sizing: border-box;
 }
 
+body {
+  font-family: "Helvetica";
+}
+
+h1 {
+  font-size: 30pt;
+}
+
+h2 {
+  font-size: 13pt;
+}
+
+p {
+  font-family: Courier, monospace;
+}
+
 .contenedor {
   margin: 50px 300px;
   padding: 50px;
