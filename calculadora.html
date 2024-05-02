@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculadora</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      .contenedor {
+        border: 1px solid black;
+        display: inline-block;
+        margin: 10px auto;
+      }
+
+      .pantalla {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        font-size: 30pt;
+        padding: 5px 10px;
+      }
+
+      .contenedor-botones {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        align-items: center;
+        margin-left: 1px;
+      }
+
+      .contenedor-botones button {
+        font-size: 15pt;
+        color: #fff;
+        position: relative;
+        display: grid;
+        width: 80px;
+        place-items: center;
+        height: 80px;
+        background: linear-gradient(180deg, #2f2f2f, #3f3f3f);
+        box-shadow: inset -8px 0 8px rgba(0, 0, 0, 0.15),
+          inset 0 -8px 8px rgba(0, 0, 0, 0.25), 0 0 0 2px rgba(0, 0, 0, 0.75),
+          10px 20px 25px rgba(0, 0, 0, 0.4);
+        user-select: none;
+        cursor: pointer;
+        font-weight: 400;
+        border-radius: 10px;
+      }
+
+      .contenedor-botones button:active {
+        filter: brightness(1.5);
+      }
+
+      .contenedor-botones button::before {
+        content: "";
+        position: absolute;
+        top: 3px;
+        left: 4px;
+        bottom: 14px;
+        right: 12px;
+        border-radius: 10px;
+        background: linear-gradient(90deg, #2d2d2d, #4d4d4d);
+        box-shadow: -5px -5px 15px rgba(0, 0, 0, 0.1),
+          10px 5px 10px rgba(0, 0, 0, 0.15);
+        border-left: 1px solid #0004;
+        border-bottom: 1px solid #0004;
+        border-top: 1px solid #0009;
+      }
+
+      .contenedor-botones i {
+        position: relative;
+        font-style: normal;
+        font-size: 1.5em;
+        text-transform: uppercase;
+      }
+
+      #clear {
+        background: #f00;
+      }
+
+      #clear::before {
+        background: linear-gradient(90deg, #d20000, #ffffff5c);
+        border-left: 1px solid #fff4;
+        border-bottom: 1px solid #fff4;
+        border-top: 1px solid #fff4;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Calculadora</h1>
+    <div class="contenedor">
+      <div id="pantalla-superior" class="pantalla">
+        <span id="valor-superior">0</span><span id="indicador-signo"></span>
+      </div>
+      <div id="pantalla-inferior" class="pantalla">
+        <span id="valor-inferior">0</span><span id="resultado"></span>
+      </div>
+      <div class="contenedor-botones">
+        <button class="numero"><i>1</i></button>
+        <button class="numero"><i>2</i></button>
+        <button class="numero"><i>3</i></button>
+        <button class="signo"><i>+</i></button>
+        <button class="numero"><i>4</i></button>
+        <button class="numero"><i>5</i></button>
+        <button class="numero"><i>6</i></button>
+        <button class="signo"><i>-</i></button>
+        <button class="numero"><i>7</i></button>
+        <button class="numero"><i>8</i></button>
+        <button class="numero"><i>9</i></button>
+        <button class="signo"><i>*</i></button>
+        <button class="numero"><i>0</i></button>
+        <button id="enter"><i>Ok</i></button>
+        <button id="clear"><i>C</i></button>
+        <button class="signo"><i>/</i></button>
+      </div>
+    </div>
+  </body>
+
+  <script>
+    const pantallaSuperior = document.querySelector("#pantalla-superior");
+    const pantallaInferior = document.querySelector("#pantalla-inferior");
+    const indicadorSigno = document.querySelector("#indicador-signo");
+    const indicadorNumSuperior = document.querySelector("#valor-superior");
+    const indicadorNumInferior = document.querySelector("#valor-inferior");
+    const indicadorResultado = document.querySelector("#resultado");
+
+    pantallaInferior.style.display = "none";
+    indicadorSigno.style.display = "none";
+
+    let esUnaOperacion = false;
+    let debeReiniciar = false;
+
+    function agregarNumero(e) {
+      if (esUnaOperacion) {
+        if (indicadorNumInferior.innerText == 0) {
+          indicadorNumInferior.innerText = e.target.innerText;
+        } else {
+          indicadorNumInferior.innerText += e.target.innerText;
+        }
+      } else {
+        if (indicadorNumSuperior.innerText == 0) {
+          indicadorNumSuperior.innerText = e.target.innerText;
+        } else {
+          indicadorNumSuperior.innerText += e.target.innerText;
+        }
+      }
+    }
+
+    function operacion() {
+      const res = eval(
+        indicadorNumSuperior.innerText +
+          indicadorSigno.innerText +
+          indicadorNumInferior.innerText
+      );
+      return res % 1 != 0 ? res.toFixed(2) : res;
+    }
+
+    function reiniciarCalculadora() {
+      indicadorNumSuperior.innerText = 0;
+      indicadorNumInferior.innerText = 0;
+      indicadorResultado.innerText = "";
+      indicadorSigno.innerText = "";
+      esUnaOperacion = false;
+      debeReiniciar = false;
+      actualizarPantalla();
+    }
+
+    function actualizarPantalla() {
+      if (esUnaOperacion) {
+        indicadorSigno.style.display = "inline";
+        pantallaInferior.style.display = "flex";
+      } else {
+        indicadorSigno.style.display = "none";
+        pantallaInferior.style.display = "none";
+        indicadorResultado.innerText = "";
+        indicadorSigno.innerText = "";
+      }
+    }
+
+    const numBtn = document.querySelectorAll(".numero");
+    numBtn.forEach((el) =>
+      el.addEventListener("click", (e) => {
+        debeReiniciar ? reiniciarCalculadora() : null;
+        agregarNumero(e);
+      })
+    );
+
+    const signBtn = document.querySelectorAll(".signo");
+    signBtn.forEach((el) =>
+      el.addEventListener("click", (e) => {
+        debeReiniciar ? reiniciarCalculadora() : null;
+
+        indicadorSigno.innerText = e.target.innerText;
+        esUnaOperacion = true;
+        actualizarPantalla();
+      })
+    );
+
+    const clearBtn = document.querySelector("#clear");
+    clearBtn.addEventListener("click", () => reiniciarCalculadora());
+
+    const okBtn = document.querySelector("#enter");
+    okBtn.addEventListener("click", () => {
+      esUnaOperacion ? (indicadorResultado.innerText = operacion()) : null;
+      esUnaOperacion = false;
+      debeReiniciar = true;
+    });
+
+    actualizarPantalla();
+  </script>
+</html>
