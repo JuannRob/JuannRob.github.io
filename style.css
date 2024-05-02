@@ -89,5 +89,18 @@ main {
 
 main section {
   width: 65%;
-  margin: 100px auto;
+  margin: 70px auto;
+}
+
+/* --- EDUCACIÓN --- */
+.educacion-item {
+  line-height: 1.5;
+  margin: 20px 0;
+}
+
+.educacion-item h4 {
+  font-size: 17pt;
+}
+.educacion-item i {
+  font-size: 13pt;
 }
