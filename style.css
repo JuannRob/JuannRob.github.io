@@ -40,6 +40,10 @@ li {
   font-family: Courier, monospace;
 }
 
+li {
+  list-style-position: inside;
+}
+
 /* - CONTENEDOR PRINCIPAL - */
 #contenedor-principal {
   margin: 50px 300px;
@@ -129,4 +133,32 @@ main section {
 .redireccionar:hover {
   color: #121212;
   background-color: #f5f5f5;
+}
+
+#en-proceso {
+  color: red;
+  font-weight: normal;
+  font-size: 13pt;
+}
+
+#proyectos p {
+  display: inline-block;
+  border: 1px solid #121212;
+  padding: 15px;
+  margin-bottom: 15px;
+}
+
+#proyectos h4 {
+  font-size: 25pt;
+  margin: 10px 0;
+}
+
+#calculadora {
+  position: relative;
+  width: 100%;
+}
+
+#calculadora h5 {
+  font-size: 20pt;
+  padding: 10px 0;
 }

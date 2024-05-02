@@ -86,6 +86,12 @@
         border-bottom: 1px solid #fff4;
         border-top: 1px solid #fff4;
       }
+
+      a {
+        display: block;
+        font-size: 20pt;
+        margin: 20px;
+      }
     </style>
   </head>
 
@@ -112,11 +118,13 @@
         <button class="numero"><i>9</i></button>
         <button class="signo"><i>*</i></button>
         <button class="numero"><i>0</i></button>
-        <button id="enter"><i>Ok</i></button>
+        <button id="enter"><i>=</i></button>
         <button id="clear"><i>C</i></button>
         <button class="signo"><i>/</i></button>
       </div>
     </div>
+
+    <a href="./proyectos.html">VOLVER</a>
   </body>
 
   <script>
@@ -175,8 +183,6 @@
       } else {
         indicadorSigno.style.display = "none";
         pantallaInferior.style.display = "none";
-        indicadorResultado.innerText = "";
-        indicadorSigno.innerText = "";
       }
     }
 
@@ -191,11 +197,14 @@
     const signBtn = document.querySelectorAll(".signo");
     signBtn.forEach((el) =>
       el.addEventListener("click", (e) => {
-        debeReiniciar ? reiniciarCalculadora() : null;
-
-        indicadorSigno.innerText = e.target.innerText;
-        esUnaOperacion = true;
-        actualizarPantalla();
+        if (debeReiniciar) {
+          reiniciarCalculadora();
+          indicadorNumSuperior.innerText = indicadorResultado.innerText;
+        } else {
+          indicadorSigno.innerText = e.target.innerText;
+          esUnaOperacion = true;
+          actualizarPantalla();
+        }
       })
     );
 
