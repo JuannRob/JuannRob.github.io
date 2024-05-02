@@ -1,5 +1,4 @@
 /* GENERAL */
-
 * {
   margin: 0;
   padding: 0;
@@ -42,7 +41,6 @@ li {
 }
 
 /* - CONTENEDOR PRINCIPAL - */
-
 #contenedor-principal {
   margin: 50px 300px;
   border: solid 1px #eaeaea;
@@ -50,11 +48,10 @@ li {
 }
 
 /* -- HEADER -- */
-
 #header-principal {
   position: relative;
   background-color: #eaeaea;
-  padding: 75px 30px;
+  padding: 75px 50px;
   margin-bottom: 50px;
 }
 
@@ -63,23 +60,34 @@ li {
   width: 50%;
 }
 
-#info {
+/* --- INFO. DE CONTACTO --- */
+#contacto {
   display: inline;
   position: absolute;
   right: 40px;
   bottom: 20px;
 }
 
-#info li {
+#contacto li {
   list-style-type: none;
   margin-bottom: 25px;
 }
 
-#info i {
+#contacto i {
   width: 50px;
   text-align: center;
 }
 
-#info a {
+#contacto a {
   color: #121212;
+}
+
+/* -- MAIN -- */
+main {
+  margin: 100px 50px;
+}
+
+main section {
+  width: 65%;
+  margin: 100px auto;
 }
